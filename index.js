@@ -8,13 +8,29 @@ require('dotenv').config()
 app.use(cors())
 
 
-app.get ('/randomAnime', (req, res) => {
+app.get ('/random3Anime', (req, res) => {
+  let animeArr = [];
     axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
       let animeData = response.data.data;
       let animeName = animeData.title_english || animeData.title;
 
-      res.send(animeName)
+      animeArr.push(animeName)
 
+      axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
+        let animeData = response.data.data;
+        let animeName = animeData.title_english || animeData.title;
+
+        animeArr.push(animeName)
+
+        axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
+          let animeData = response.data.data;
+          let animeName = animeData.title_english || animeData.title;
+
+          animeArr.push(animeName)
+          res.send(animeArr)
+
+        })
+      })
     })
 })
 
