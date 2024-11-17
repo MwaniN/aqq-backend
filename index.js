@@ -25,7 +25,7 @@ app.get('/randomQuote', (req, res) => {
         'x-api-key': process.env.API_KEY}
       }
     ).then(function (response) {
-      res.send(response.data.data.content)
+      res.send(response.data.data)
     }).catch(
       function(error) {
         if (error.response) {
