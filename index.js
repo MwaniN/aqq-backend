@@ -10,9 +10,11 @@ app.use(cors())
 
 app.get ('/randomAnime', (req, res) => {
     axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
-      let animeName = response.data.data.title
-      console.log(animeName, " THIS IS animeName")
+      let animeData = response.data.data;
+      let animeName = animeData.title_english || animeData.title;
+
       res.send(animeName)
+
     })
 })
 
