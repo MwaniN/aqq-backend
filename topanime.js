@@ -44017,3 +44017,5 @@ for (let animeResultsPage of animeResultsArray) {
 
 
 console.log(topAnimeNameArray)
+
+fs.writeFileSync("topAnimeNameArray.txt", JSON.stringify(topAnimeNameArray))
