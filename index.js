@@ -7,31 +7,66 @@ require('dotenv').config()
 
 app.use(cors())
 
+const fs = require('fs').promises;
 
-app.get ('/random3Anime', (req, res) => {
-  let animeArr = [];
-    axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
-      let animeData = response.data.data;
-      let animeName = animeData.title_english || animeData.title;
+function randomIntFromInterval(min, max) { // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-      animeArr.push(animeName)
+app.get ('/random4Anime', (req, res) => {
 
-      axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
-        let animeData = response.data.data;
-        let animeName = animeData.title_english || animeData.title;
+  let topAnimeNameArray = null
 
-        animeArr.push(animeName)
+  async function retrieveTopAnime() {
+    const data = await fs.readFile("topAnimeNameArray.txt", "utf8");
+    topAnimeNameArray = Buffer.from(data);
 
-        axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
-          let animeData = response.data.data;
-          let animeName = animeData.title_english || animeData.title;
+    topAnimeNameArray = JSON.parse(topAnimeNameArray);
 
-          animeArr.push(animeName)
-          res.send(animeArr)
+    let randomIndexes = []
 
-        })
-      })
-    })
+    while (randomIndexes.length <= 3) {
+      rndInt = randomIntFromInterval(0, topAnimeNameArray.length - 1);
+
+      if (!randomIndexes.includes(rndInt)) {
+        randomIndexes.push(rndInt)
+      }
+
+    }
+
+    let random4Anime = []
+
+    for (let index of randomIndexes) {
+      random4Anime.push(topAnimeNameArray[index])
+    }
+
+    res.send(JSON.stringify(random4Anime))
+  }
+
+  retrieveTopAnime()
+  // let animeArr = [];
+    // axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
+    //   let animeData = response.data.data;
+    //   let animeName = animeData.title_english || animeData.title;
+
+    //   animeArr.push(animeName)
+
+    //   axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
+    //     let animeData = response.data.data;
+    //     let animeName = animeData.title_english || animeData.title;
+
+    //     animeArr.push(animeName)
+
+    //     axios.get('https://api.jikan.moe/v4/random/anime').then( function (response) {
+    //       let animeData = response.data.data;
+    //       let animeName = animeData.title_english || animeData.title;
+
+    //       animeArr.push(animeName)
+    //       res.send(animeArr)
+
+    //     })
+    //   })
+    // })
 })
 
 app.get('/randomQuote', (req, res) => {
