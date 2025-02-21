@@ -110,6 +110,10 @@ app.post('/verifyUserID', (req, res) => {
 
 })
 
+// sign up will create a new user entry in the database
+
+// login will confirm that the logged in user is in the database and return some information
+
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}`)
 })
