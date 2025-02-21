@@ -1,10 +1,10 @@
+const verifyToken = require('./firebaseAuthMiddleware.js');
 const express = require('express')
 const axios = require('axios')
 const cors = require ('cors')
 const app = express()
 const port = 3000
 require('dotenv').config()
-//const verifyToken = require('./firebaseAuthMiddleware.js');
 
 app.use(cors())
 
@@ -103,6 +103,10 @@ app.get('/randomQuote', (req, res) => {
 })
 
 app.post('/verifyUserID', (req, res) => {
+
+  verifyToken(req, res, () => {
+    console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
+  })
 
 })
 

@@ -18,6 +18,7 @@ const verifyToken = function (req, res, next) {
     // use next() to run a callback related to the particular request
     // that way it can be used multiple times.
     // It's a callback.
+    next();
     res.status(200).send({ message: 'Request processed successfully'});
   }).catch((error) => {
     // Handle error, such as invalid or expired token
