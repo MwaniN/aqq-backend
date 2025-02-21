@@ -4,6 +4,7 @@ const cors = require ('cors')
 const app = express()
 const port = 3000
 require('dotenv').config()
+//const verifyToken = require('./firebaseAuthMiddleware.js');
 
 app.use(cors())
 
