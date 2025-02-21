@@ -1,19 +1,29 @@
 const admin = require('./firebaseAdmin.js')
 
-const verifyToken = async (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+const getAuthToken = function (req) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    return req.headers.authorization.split(' ')[1];
   }
+  return null;
+}
 
-  try {
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedToken;
-    next();
-  } catch (error) {
-    return res.status(401).json({ message: 'Invalid token' });
-  }
+
+const verifyToken = function (req, res, next) {
+  const idToken = getAuthToken(req);
+
+  admin.auth().verifyIdToken(idToken).then((decodedToken) => {
+    const uid = decodedToken.uid
+    console.log(decodedToken);
+    // user is authenticated, proceed with handling the request
+    // use next() to run a callback related to the particular request
+    // that way it can be used multiple times.
+    // It's a callback.
+    res.status(200).send({ message: 'Request processed successfully'});
+  }).catch((error) => {
+    // Handle error, such as invalid or expired token
+    res.status(401).send({ error: 'Unauthorized'});
+  })
+
 };
 
 module.exports = verifyToken;
