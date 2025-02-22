@@ -104,6 +104,8 @@ app.get('/randomQuote', (req, res) => {
 
 app.post('/verifyUserID', (req, res) => {
 
+  // the below passes in the callback that will be executed once the identity is verified
+
   verifyToken(req, res, () => {
     console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
   })
