@@ -4,6 +4,10 @@ const axios = require('axios')
 const cors = require ('cors')
 const app = express()
 const port = 3000
+
+const client = require('./db');
+const models = require('./db/models.js')
+
 require('dotenv').config()
 
 app.use(cors())
