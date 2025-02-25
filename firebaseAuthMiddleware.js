@@ -12,13 +12,14 @@ const verifyToken = function (req, res, next) {
   const idToken = getAuthToken(req);
 
   admin.auth().verifyIdToken(idToken).then((decodedToken) => {
-    const uid = decodedToken.uid
-    console.log(decodedToken);
     // user is authenticated, proceed with handling the request
     // use next() to run a callback related to the particular request
     // that way it can be used multiple times.
     // It's a callback.
-    next();
+    // Pass in the user object so the callback can do as it wishes
+
+    console.log(decodedToken)
+    next(decodedToken);
     res.status(200).send({ message: 'Request processed successfully'});
   }).catch((error) => {
     // Handle error, such as invalid or expired token
