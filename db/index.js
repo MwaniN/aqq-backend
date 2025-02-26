@@ -16,4 +16,30 @@ async function currDBTest () {
   return result;
 }
 
+async function CreateTables() {
+  await client.query(`CREATE TABLE IF NOT EXISTS users (
+    id VARCHAR(200) PRIMARY KEY,
+    email VARCHAR(100),
+    date_joined TIMESTAMPTZ
+    );`)
+
+  await client.query(`CREATE TABLE IF NOT EXISTS quotes (
+    id INT PRIMARY KEY,
+    quote_body TEXT,
+    anime_name VARCHAR(400),
+    character_name VARCHAR(400)
+    );`)
+
+  await client.query(`CREATE TABLE IF NOT EXISTS users_quotes (
+    user_id VARCHAR(200) REFERENCES users (id),
+    quote_id INT REFERENCES quotes (id),
+    time_added TIMESTAMPTZ,
+    primary key (user_id, quote_id)
+
+    );`)
+
+}
+
+CreateTables().then(() => {console.log(`Tables successfully created (or already exist)`)})
+
 module.exports = client;
