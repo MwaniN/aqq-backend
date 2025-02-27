@@ -106,16 +106,16 @@ app.get('/randomQuote', (req, res) => {
     )
 })
 
-app.post('/verifyUserID', (req, res) => {
+// app.post('/verifyUserID', (req, res) => {
 
-  // the below passes in the callback that will be executed once the identity is verified
+//   // the below passes in the callback that will be executed once the identity is verified
 
-  verifyToken(req, res, (userObject) => {
-    console.log(userObject.uid, "this is from the callback!")
-    console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
-  })
+//   verifyToken(req, res, (userObject) => {
+//     console.log(userObject.uid, "this is from the callback!")
+//     console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
+//   })
 
-})
+// })
 
 // sign up will create a new user entry in the database
 
@@ -128,13 +128,13 @@ app.post('/signup', (req, res) => {
 
 // login will confirm that the logged in user is in the database and return some information
 
-app.get('/profileInfo', (req, res) => {
+// app.get('/profileInfo', (req, res) => {
 
-  verifyToken(req, res, (userObject) => {
-    // replace this function with the model callback for SQL
-  })
+//   verifyToken(req, res, (userObject) => {
+//     // replace this function with the model callback for SQL
+//   })
 
-})
+// })
 
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}`)
