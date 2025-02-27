@@ -8,7 +8,7 @@ module.exports.signup = async function (req, res, userObject) {
   let date = Date.now(); // stores it as a BIGINT
 
   try {
-    await client.query(`INSERT INTO users (id, email, date_joined) VALUES ('${uid}', '${email}', ${date})`)
+    await client.query(`INSERT INTO users (id, email, date_joined) VALUES ('${uid}', '${email}', '${date}')`)
 
     res.status(200).send({ email: `${email}`});
     console.log('User added successfully';)

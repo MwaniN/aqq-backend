@@ -121,9 +121,7 @@ app.post('/verifyUserID', (req, res) => {
 
 app.post('/signup', (req, res) => {
 
-  verifyToken(req, res, (userObject) => {
-    // replace this function with the model callback for SQL
-  })
+  verifyToken(req, res, models.signup)
 
 
 } )
