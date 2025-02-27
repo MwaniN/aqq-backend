@@ -106,16 +106,16 @@ app.get('/randomQuote', (req, res) => {
     )
 })
 
-// app.post('/verifyUserID', (req, res) => {
+app.post('/verifyUserID', (req, res) => {
 
-//   // the below passes in the callback that will be executed once the identity is verified
+  // the below passes in the callback that will be executed once the identity is verified
 
-//   verifyToken(req, res, (userObject) => {
-//     console.log(userObject.uid, "this is from the callback!")
-//     console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
-//   })
+  verifyToken(req, res, (userObject) => {
+    console.log(userObject.uid, "this is from the callback!")
+    console.log("You did it! Here a particular request would be processed like updating the SQL backend.")
+  })
 
-// })
+})
 
 // sign up will create a new user entry in the database
 
