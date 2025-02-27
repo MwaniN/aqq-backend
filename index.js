@@ -119,6 +119,15 @@ app.post('/verifyUserID', (req, res) => {
 
 // sign up will create a new user entry in the database
 
+app.post('/signup', (req, res) => {
+
+  verifyToken(req, res, (userObject) => {
+    // replace this function with the model callback for SQL
+  })
+
+
+} )
+
 // login will confirm that the logged in user is in the database and return some information
 
 app.get('/profileInfo', (req, res) => {

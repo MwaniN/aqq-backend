@@ -19,8 +19,7 @@ const verifyToken = function (req, res, next) {
     // Pass in the user object so the callback can do as it wishes
 
     console.log(decodedToken)
-    next(decodedToken);
-    res.status(200).send({ message: 'Request processed successfully'});
+    next(req, res, decodedToken);
   }).catch((error) => {
     // Handle error, such as invalid or expired token
     res.status(401).send({ error: 'Unauthorized'});
