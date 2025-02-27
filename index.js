@@ -121,6 +121,14 @@ app.post('/verifyUserID', (req, res) => {
 
 // login will confirm that the logged in user is in the database and return some information
 
+app.get('/profileInfo', (req, res) => {
+
+  verifyToken(req, res, (userObject) => {
+    // replace this function with the model callback for SQL
+  })
+
+})
+
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}`)
 })
