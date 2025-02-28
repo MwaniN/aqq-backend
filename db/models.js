@@ -21,20 +21,19 @@ module.exports.signup = async function (req, res, userObject) {
   return
 }
 
-module.exports.login = async function (req, res, userObject) {
+module.exports.login = function (req, res, userObject) {
 
   let uid = userObject.uid;
 
-  try {
-    let email = await client.query(`SELECT email FROM users WHERE id = '${uid}';`)
-
-    res.status(200).send({ email: `${email}`});
-    console.log('User logged in successfully');
-  } catch (error) {
-    console.log(error, " error logging in user")
-    res.status(400).send(error, " error logging in user")
-  }
-
+    client.query(`SELECT email FROM users WHERE id = '${uid}';`).then((result) => {
+      let email = result.rows[0].email
+      console.log(email, "this is email from the thenified function")
+      res.status(200).send({ email: `${email}`});
+      console.log('User logged in successfully');
+    }).catch((error) => {
+      console.log(error, " error logging in user")
+      res.status(400).send(error, " error logging in user")
+    })
 }
 
 module.exports.profile = async function (req, res, userObject) {
