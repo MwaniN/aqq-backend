@@ -39,6 +39,8 @@ module.exports.login = function (req, res, userObject) {
 module.exports.profile = async function (req, res, userObject) {
   // replace with info for profile page
   // username, email, date joined
+  // add options for username and profile photo in the db first
+  // or could simply use the ones from firebase instead and only pull the quotes etc. from the db
 }
 
 module.exports.bookmarks = async function (req, res, userObject) {
