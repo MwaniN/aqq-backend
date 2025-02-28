@@ -126,6 +126,13 @@ app.post('/signup', (req, res) => {
 
 } )
 
+app.post('/login', (req, res) => {
+  // verifies the user and returns the email address to the client
+
+  verifyToken(req, res, () => {console.log('Replace this with models.login when ready')})
+
+}
+)
 // login will confirm that the logged in user is in the database and return some information
 
 // app.get('/profileInfo', (req, res) => {
