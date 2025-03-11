@@ -28,7 +28,7 @@ module.exports.login = function (req, res, userObject) {
     client.query(`SELECT email FROM users WHERE id = '${uid}';`).then((result) => {
       let email = result.rows[0].email
       console.log(email, "this is email from the thenified function")
-      res.status(200).send({ email: `${email}`});
+      res.status(200).send({ "email": `${email}`});
       console.log('User logged in successfully');
     }).catch((error) => {
       console.log(error, " error logging in user")
