@@ -25,10 +25,13 @@ module.exports.login = function (req, res, userObject) {
 
   let uid = userObject.uid;
 
-    client.query(`SELECT email FROM users WHERE id = '${uid}';`).then((result) => {
+    client.query(`SELECT email, date_joined FROM users WHERE id = '${uid}';`).then((result) => {
       let email = result.rows[0].email
-      console.log(email, "this is email from the thenified function")
-      res.status(200).send({ "email": `${email}`});
+      let date_joined = result.rows[0].date_joined
+
+      console.log(email, date_joined, "this is email and date_joined from the thenified function")
+
+      res.status(200).send({ "email": `${email}`, "date_joined" : date_joined});
       console.log('User logged in successfully');
     }).catch((error) => {
       console.log(error, " error logging in user")
@@ -36,12 +39,12 @@ module.exports.login = function (req, res, userObject) {
     })
 }
 
-module.exports.profile = async function (req, res, userObject) {
-  // replace with info for profile page
-  // username, email, date joined
-  // add options for username and profile photo in the db first
-  // or could simply use the ones from firebase instead and only pull the quotes etc. from the db
-}
+// module.exports.profile = async function (req, res, userObject) {
+//   // replace with info for profile page
+//   // username, email, date joined
+//   // add options for username and profile photo in the db first
+//   // or could simply use the ones from firebase instead and only pull the quotes etc. from the db
+// }
 
 module.exports.bookmarks = async function (req, res, userObject) {
   // replace with bookmarked quotes for that user
