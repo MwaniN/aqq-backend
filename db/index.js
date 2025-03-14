@@ -20,7 +20,9 @@ async function CreateTables() {
   await client.query(`CREATE TABLE IF NOT EXISTS users (
     id VARCHAR(200) PRIMARY KEY,
     email VARCHAR(100),
-    date_joined BIGINT
+    date_joined BIGINT,
+    high_score INT,
+    games_played BIGINT
     );`)
 
   await client.query(`CREATE TABLE IF NOT EXISTS quotes (

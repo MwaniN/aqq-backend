@@ -39,6 +39,10 @@ module.exports.login = function (req, res, userObject) {
     })
 }
 
+module.exports.new_bookmark = async function (req, res, userObject) {
+  // add a new bookmark to the db for that user and return success to the client
+}
+
 // module.exports.profile = async function (req, res, userObject) {
 //   // replace with info for profile page
 //   // username, email, date joined
@@ -49,8 +53,4 @@ module.exports.login = function (req, res, userObject) {
 module.exports.bookmarks = async function (req, res, userObject) {
   // replace with bookmarked quotes for that user
   // pull them from the SQL DB and paginate over a certain amount
-}
-
-module.exports.new_bookmark = async function (req, res, userObject) {
-  // add a new bookmark to the db for that user and return success to the client
 }
