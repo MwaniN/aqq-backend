@@ -39,9 +39,19 @@ module.exports.login = function (req, res, userObject) {
     })
 }
 
-module.exports.new_bookmark = async function (req, res, userObject) {
-  // add a new bookmark to the db for that user and return success to the client
+module.exports.update_stats = function (req, res, userObject) {
+
+  let uid = userObject.uid;
+
+  client.query(``)
+
+
 }
+
+
+// module.exports.new_bookmark = async function (req, res, userObject) {
+//   // add a new bookmark to the db for that user and return success to the client
+// }
 
 // module.exports.profile = async function (req, res, userObject) {
 //   // replace with info for profile page
@@ -50,7 +60,7 @@ module.exports.new_bookmark = async function (req, res, userObject) {
 //   // or could simply use the ones from firebase instead and only pull the quotes etc. from the db
 // }
 
-module.exports.bookmarks = async function (req, res, userObject) {
-  // replace with bookmarked quotes for that user
-  // pull them from the SQL DB and paginate over a certain amount
-}
+// module.exports.bookmarks = async function (req, res, userObject) {
+//   // replace with bookmarked quotes for that user
+//   // pull them from the SQL DB and paginate over a certain amount
+// }
