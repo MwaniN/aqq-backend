@@ -43,7 +43,20 @@ module.exports.update_stats = function (req, res, userObject) {
 
   let uid = userObject.uid;
 
-  client.query(``)
+  try {
+
+    // update number of games completed
+    await client.query(``)
+
+    // update highest score if the new one is higher
+    await client.query(``)
+
+    res.status(200).send("Stats updated successfully")
+
+  } catch (error) {
+    console.log(error, " error updating user stats")
+    res.status(400).send(error, " error updating user stats")
+  }
 
 
 }
