@@ -41,6 +41,8 @@ module.exports.login = function (req, res, userObject) {
 
 module.exports.update_stats = function (req, res, userObject) {
 
+  console.log(req, " this is req from the stat function")
+
   let uid = userObject.uid;
   let currScore = req.data.score;
 
