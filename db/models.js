@@ -42,14 +42,19 @@ module.exports.login = function (req, res, userObject) {
 module.exports.update_stats = function (req, res, userObject) {
 
   let uid = userObject.uid;
+  let currScore = req.data.score;
 
   try {
 
     // update number of games completed
-    await client.query(``)
+    await client.query(`UPDATE users
+      SET games_played = games_played + 1
+      WHERE id = '${uid}';`)
 
     // update highest score if the new one is higher
-    await client.query(``)
+    await client.query(`UPDATE users
+      SET high_score GREATEST(high_score, :'${currScore}')
+      WHERE id = '${uid}';`)
 
     res.status(200).send("Stats updated successfully")
 
