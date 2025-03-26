@@ -134,6 +134,13 @@ app.post('/login', (req, res) => {
 }
 )
 
+app.put('/update_stats', (req, res) => {
+
+  verifyToken(req, res, models.update_stats)
+
+})
+
+
 app.get('/profile', (req, res) => {
 
   verifyToken(req, res, (userObject) => {
