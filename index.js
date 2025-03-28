@@ -11,6 +11,7 @@ const models = require('./db/models.js')
 require('dotenv').config()
 
 app.use(cors())
+app.use(express.json())
 
 const fs = require('fs').promises;
 

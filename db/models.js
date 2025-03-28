@@ -42,9 +42,10 @@ module.exports.login = function (req, res, userObject) {
 module.exports.update_stats = async function (req, res, userObject) {
 
   console.log(req, " this is req from the stat function")
+  console.log(`THIS IS REQ.BODY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`, req.body, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
   let uid = userObject.uid;
-  let currScore = req.data.score;
+  let currScore = req.body.score;
 
   try {
 
