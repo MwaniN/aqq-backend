@@ -41,7 +41,6 @@ module.exports.login = function (req, res, userObject) {
 
 module.exports.update_stats = async function (req, res, userObject) {
 
-  console.log(req, " this is req from the stat function")
   console.log(`THIS IS REQ.BODY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`, req.body, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
   let uid = userObject.uid;
@@ -56,14 +55,14 @@ module.exports.update_stats = async function (req, res, userObject) {
 
     // update highest score if the new one is higher
     await client.query(`UPDATE users
-      SET high_score GREATEST(high_score, :'${currScore}')
+      SET high_score = GREATEST(high_score,'${currScore}')
       WHERE id = '${uid}';`)
 
-    res.status(200).send("Stats updated successfully")
+    res.status(201).send("Stats updated successfully")
 
   } catch (error) {
     console.log(error, " error updating user stats")
-    res.status(400).send(error, " error updating user stats")
+    res.status(500).send(error, " error updating user stats")
   }
 
 
