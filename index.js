@@ -79,7 +79,7 @@ app.get('/randomQuote', (req, res) => {
   axios(
     {
       method: 'get',
-      url: 'https://animechan.io/api/v1/quotes/random',
+      url: 'https://api.animechan.io/v1/quotes/random',
       headers: {
         'x-api-key': process.env.API_KEY}
       }
