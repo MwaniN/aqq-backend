@@ -10,6 +10,7 @@ const getAuthToken = function (req) {
 
 const verifyToken = function (req, res, next) {
   const idToken = getAuthToken(req);
+  console.log(idToken, " This is idToken within the verifyToken middleware!!!")
 
   admin.auth().verifyIdToken(idToken).then((decodedToken) => {
     // user is authenticated, proceed with handling the request
