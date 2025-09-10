@@ -76,6 +76,7 @@ app.get ('/random4Anime', (req, res) => {
 })
 
 app.get('/randomQuote', (req, res) => {
+
   axios(
     {
       method: 'get',
