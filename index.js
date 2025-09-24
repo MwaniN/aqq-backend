@@ -143,13 +143,6 @@ console.log("stats updated")
 })
 
 
-app.get('/profile', (req, res) => {
-
-  verifyToken(req, res, (userObject) => {
-    // replace this function with the model callback for SQL
-  })
-
-})
 
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}`)
