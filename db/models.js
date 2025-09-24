@@ -60,20 +60,37 @@ module.exports.update_stats = async function (req, res, userObject) {
 
   let uid = userObject.uid;
   let currScore = req.body.score;
+  let gameType = req.body.gameType; // expects '5', '10', or '15'
 
   try {
 
-    // update number of games completed
+    // update number of games completed for the specific game type
+    await client.query(`UPDATE users
+      SET games_played_${gameType} = games_played_${gameType} + 1
+      WHERE id = '${uid}';`)
+
+    // update highest score for the specific game type if the new one is higher
+    await client.query(`UPDATE users
+      SET high_score_${gameType} = GREATEST(high_score_${gameType},'${currScore}')
+      WHERE id = '${uid}';`)
+
+    // also update the general games_played counter for backward compatibility
     await client.query(`UPDATE users
       SET games_played = games_played + 1
       WHERE id = '${uid}';`)
 
-    // update highest score if the new one is higher
-    await client.query(`UPDATE users
-      SET high_score = GREATEST(high_score,'${currScore}')
-      WHERE id = '${uid}';`)
+    // get the updated stats to return
+    const result = await client.query(`SELECT high_score_${gameType}, games_played_${gameType}, games_played FROM users WHERE id = '${uid}';`)
+    const updatedHighScore = result.rows[0][`high_score_${gameType}`]
+    const updatedGamesPlayed = result.rows[0][`games_played_${gameType}`]
+    const totalGamesPlayed = result.rows[0].games_played
 
-    res.status(201).send("Stats updated successfully")
+    res.status(201).send({
+      "high_score": updatedHighScore,
+      "games_played": updatedGamesPlayed,
+      "total_games_played": totalGamesPlayed,
+      "game_type": gameType
+    })
 
   } catch (error) {
     console.log(error, " error updating user stats")
