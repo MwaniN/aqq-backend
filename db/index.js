@@ -21,9 +21,32 @@ async function CreateTables() {
     id VARCHAR(200) PRIMARY KEY,
     email VARCHAR(100),
     date_joined BIGINT,
-    high_score INT DEFAULT 0,
+    high_score_5 INT DEFAULT 0,
+    high_score_10 INT DEFAULT 0,
+    high_score_15 INT DEFAULT 0,
+    games_played_5 INT DEFAULT 0,
+    games_played_10 INT DEFAULT 0,
+    games_played_15 INT DEFAULT 0,
     games_played BIGINT DEFAULT 0
     );`)
+
+  // Add new high score columns to existing table if they don't exist
+  try {
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS high_score_5 INT DEFAULT 0;`)
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS high_score_10 INT DEFAULT 0;`)
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS high_score_15 INT DEFAULT 0;`)
+  } catch (error) {
+    console.log('Error adding high score columns:', error)
+  }
+
+  // Add new games played columns to existing table if they don't exist
+  try {
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS games_played_5 INT DEFAULT 0;`)
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS games_played_10 INT DEFAULT 0;`)
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS games_played_15 INT DEFAULT 0;`)
+  } catch (error) {
+    console.log('Error adding games played columns:', error)
+  }
 
   await client.query(`CREATE TABLE IF NOT EXISTS quotes (
     id INT PRIMARY KEY,
