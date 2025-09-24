@@ -25,14 +25,28 @@ module.exports.login = function (req, res, userObject) {
 
   let uid = userObject.uid;
 
-    client.query(`SELECT email, date_joined, high_score FROM users WHERE id = '${uid}';`).then((result) => {
+    client.query(`SELECT email, date_joined, high_score_5, high_score_10, high_score_15, games_played_5, games_played_10, games_played_15 FROM users WHERE id = '${uid}';`).then((result) => {
       let email = result.rows[0].email
       let date_joined = result.rows[0].date_joined
-      let high_score = result.rows[0].high_score
+      let high_score_5 = result.rows[0].high_score_5
+      let high_score_10 = result.rows[0].high_score_10
+      let high_score_15 = result.rows[0].high_score_15
+      let games_played_5 = result.rows[0].games_played_5
+      let games_played_10 = result.rows[0].games_played_10
+      let games_played_15 = result.rows[0].games_played_15
 
-      console.log(email, date_joined, high_score, "this is email, date_joined, and high_score from the thenified function")
+      console.log(email, date_joined, high_score_5, high_score_10, high_score_15, games_played_5, games_played_10, games_played_15, "this is all user stats from the thenified function")
 
-      res.status(200).send({ "email": `${email}`, "date_joined" : date_joined, "high_score": high_score});
+      res.status(200).send({ 
+        "email": `${email}`, 
+        "date_joined": date_joined, 
+        "high_score_5": high_score_5,
+        "high_score_10": high_score_10,
+        "high_score_15": high_score_15,
+        "games_played_5": games_played_5,
+        "games_played_10": games_played_10,
+        "games_played_15": games_played_15
+      });
       console.log('User logged in successfully');
     }).catch((error) => {
       console.log(error, " error logging in user")
