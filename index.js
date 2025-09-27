@@ -22,6 +22,7 @@ function randomIntFromInterval(min, max) { // min and max included
 app.get ('/random4Anime', (req, res) => {
 
   let topAnimeNameArray = null
+  const excludeAnime = req.query.exclude; // Get the correct anime name to exclude
 
   async function retrieveTopAnime() {
     const data = await fs.readFile("topAnimeNameArray.txt", "utf8");
@@ -35,6 +36,13 @@ app.get ('/random4Anime', (req, res) => {
       rndInt = randomIntFromInterval(0, topAnimeNameArray.length - 1);
 
       if (!randomIndexes.includes(rndInt)) {
+        const candidateAnime = topAnimeNameArray[rndInt];
+        
+        // Skip if it matches the correct anime (exact or substring match, case-insensitive)
+        if (excludeAnime && candidateAnime.toLowerCase().includes(excludeAnime.toLowerCase())) {
+          continue;
+        }
+        
         randomIndexes.push(rndInt)
       }
 
